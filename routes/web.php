@@ -1,11 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AdminController;
 
-Route::get('/', function () {
+Route::get('/', [AdminController::class, 'index'])->name('home');
 
-})->name('home');
-
-Route::get('/blog', function () {
-
-})->name('blog');
+Route::get('/blog', [AdminController::class, 'blogs'])->name('blog');

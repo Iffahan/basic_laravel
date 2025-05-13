@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -15,38 +16,13 @@ class AdminController extends Controller
 
     function blogs()
     {
-        $blogs = [
-            [
-                'title' => 'My First Blog',
-                'content' => 'This is the content of my first blog post.',
-                'author' => 'Iffahan Suksuwan',
-                'date' => '2025-05-13',
-            ],
-            [
-                'title' => 'My Second Blog',
-                'content' => 'This is the content of my second blog post.',
-                'author' => 'Iffahan Suksuwan',
-                'date' => '2025-05-14',
-            ],
-            [
-                'title' => 'My Third Blog',
-                'content' => 'This is the content of my third blog post.',
-                'author' => 'Iffahan Suksuwan',
-                'date' => '2025-05-15',
-            ],
-            [
-                'title' => 'My Fourth Blog',
-                'content' => 'This is the content of my fourth blog post.',
-                'author' => 'Iffahan Suksuwan',
-                'date' => '2025-05-16',
-            ],
-            [
-                'title' => 'My Fifth Blog',
-                'content' => 'This is the content of my fifth blog post.',
-                'author' => 'Iffahan Suksuwan',
-                'date' => '2025-05-17',
-            ],
-        ];
+        $blogs = DB::table('blogs')->get();
         return view('blog', compact('blogs'));
+    }
+
+    function delete($id)
+    {
+        DB::table('blogs')->where('id', $id)->delete();
+        return redirect()->back();
     }
 }

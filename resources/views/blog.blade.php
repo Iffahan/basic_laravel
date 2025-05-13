@@ -1,33 +1,36 @@
-{{-- resources/views/blog.blade.php --}}
-
-@extends('layout') {{-- or 'layouts.app' if your layout file is layouts/app.blade.php --}}
+@extends('layout')
 
 @section('title', 'Blog Page')
 
 @section('content')
-    <h1>Blog</h1>
-    <p>Welcome to the blog page!</p>
-    <p>Here you can find the latest articles and updates.</p>
+    <div class="container mt-4">
+        <h1 class="mb-3">Blog</h1>
+        <p class="lead">Welcome to the blog page! Here you can find the latest articles and updates.</p>
 
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th scope="col">title</th>
-                <th scope="col">content</th>
-                <th scope="col">date</th>
-                <th scope="col">author</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($blogs as $item)
-                <tr>
-                    <td>{{ $item['title'] }}</td>
-                    <td>{{ $item['content'] }}</td>
-                    <td>{{ $item['date'] }}</td>
-                    <td>{{ $item['author'] }}</td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
-
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped table-hover align-middle">
+                <thead class="table-dark">
+                    <tr>
+                        <th scope="col">Title</th>
+                        <th scope="col">Content</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Author</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($blogs as $item)
+                        <tr>
+                            <td>{{ Str::limit($item->title, 30) }}</td>
+                            <td>{{ Str::limit($item->content, 80) }}</td>
+                            <td>{{ $item->date }}</td>
+                            <td>{{ $item->author }}</td>
+                            <td><a href="{{ route('delete', $item->id) }}" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure?')">Delete</a></td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+    </div>
 @endsection
